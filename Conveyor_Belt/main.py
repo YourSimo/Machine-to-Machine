@@ -8,7 +8,7 @@ This program requires LEGO® EV3 MicroPython v2.0.
 Download: https://education.lego.com/en-us/support/mindstorms-ev3/python-for-ev3
 
 Building instructions can be found at:
-link
+link https://rebrickable.com/mocs/MOC-88960/YourSimo/conveyor-belt/
 '''
 
 from pybricks.hubs import EV3Brick
