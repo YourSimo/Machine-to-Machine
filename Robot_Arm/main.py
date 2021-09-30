@@ -119,7 +119,7 @@ def measure_item():
     lift_to(LIFT_SPEED, RAISE)
 
 
-def arm_init():
+def arm_init(pos):
     # Initialize the elbow. First make it go down for one second.
     # Then make it go upwards slowly (15 degrees per second) until
     # the Color Sensor detects the white beam. Then reset the motor
@@ -135,13 +135,14 @@ def arm_init():
     # Initialize the base. First rotate it until the Touch Sensor
     # in the base is pressed. Reset the motor angle to make this
     # the zero point. Then hold the motor in place so it does not move.
-    base_motor.run(-50)
+    base_motor.run(-40)
     while not base_sensor.pressed():
         wait(10)
     base_motor.hold()
     wait(500)
     base_motor.run_angle(30, 15, then=Stop.HOLD, wait=True)
     base_motor.reset_angle(0)
+    rotate_to(40, pos)
 
     # Initialize the gripper. First rotate the motor until it stalls.
     # Stalling means that it cannot move any further. This position
@@ -195,18 +196,6 @@ def arm_pick(pos):
                 lift_to(LIFT_SPEED, LOW)
                 try_again = True
 
-    '''
-    while error:
-        m = gripper_close()
-        print(m)
-        if m > brick_size + TOLL or m < brick_size - TOLL:
-            error = True
-            ev3_arm.speaker.beep()
-            gripper_open()
-        else:
-            error = False
-    '''
-
     # Raise the arm to lift the wheel stack.
     lift_to(LIFT_SPEED, RAISE)
 
@@ -240,7 +229,7 @@ def arm_drop(pos):
 
 
 client.connect(SERVER)
-arm_init()
+arm_init(MIDDLE)
 
 while not client.receive('READY'):
     pass
