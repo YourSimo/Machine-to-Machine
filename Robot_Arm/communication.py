@@ -72,7 +72,6 @@ class Communication:
                     print('send: ', msg)
                     self.data_out.send(msg)
                     self.msgs_out[msg] = False
-                wait(500)
 
     def run(self):
         self.made_bt_connection = True
